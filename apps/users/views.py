@@ -2,6 +2,8 @@ from flask import Blueprint
 from flask import jsonify
 from flask_restful import Api, Resource
 
+from apps.users.models import User
+
 user = Blueprint('user', __name__)
 api = Api(user)
 
@@ -21,9 +23,12 @@ class UserAPI(Resource):
             )
 
     def post(self):
+        user = User(username='wang2gou')
+        user.save()
         return jsonify(
             request="POST /users/",
-            message="Create a new user"
+            message="Create a new user",
+            username=user.username
         )
 
     def put(self, user_id):
